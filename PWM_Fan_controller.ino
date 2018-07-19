@@ -5,16 +5,15 @@
 
 
 #include <OneWire.h> // from http://playground.arduino.cc/Learning/OneWire
-#include <DallasTemperature.h> // from http://www.hacktronics.com/code/DallasTemperature.zip. When adding this to your IDE, ensure the .h and .cpp files are in the top directory of the library.
-#define ONE_WIRE_BUS 8 // Data wire from temp sensor is plugged into pin 8 on the Arduino
-OneWire oneWire(ONE_WIRE_BUS); // Setup a oneWire instance to communicate with any OneWire devices
-DallasTemperature sensors(&oneWire); // Pass our oneWire reference to Dallas Temperature.
-
-// define constants & global variables
+#include <DallasTemperature.h> // from http://www.hacktronics.com/code/DallasTemperature.zip. 
 #define fanPin 3 //defines pin the fan driver circuitry is connected to. 
 #define setPoint 30 // temperature set point
+#define ONE_WIRE_BUS 10 // Data wire from temp sensor is plugged into pin 10 on the Arduino
 float tempC; // Temperature in degrees C
 int pwm = 0;// pwm for fan control
+
+OneWire oneWire(ONE_WIRE_BUS); // Setup a oneWire instance to communicate with any OneWire devices
+DallasTemperature sensors(&oneWire); // Pass our oneWire reference to Dallas Temperature.
 
 void setup()
 {
@@ -32,5 +31,6 @@ void loop()
     pwm = constrain (pwm, 0, 255);
     analogWrite (fanPin, pwm); // set fan speed
   }
+  delay (500); //wait a bit
 }
 
